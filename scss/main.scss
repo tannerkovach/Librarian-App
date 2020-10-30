@@ -1,0 +1,60 @@
+body > * { 
+    font-family: Roboto;
+}
+
+ul {
+    list-style: none;
+}
+
+.bookDetails {
+  .card-body {
+    flex: unset;
+  }
+  .text-truncate {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+  }
+
+  .card-img {
+    object-fit: cover;
+    width: 125px;
+    height: 200px;
+  }
+}
+
+#headerNav {
+  .dropdown-menu-right {
+    margin: 0 20px 0 0;
+  }
+}
+
+
+
+$danger: #cc5a71;
+$primary: #3f88c5;
+$secondary: #838683;
+
+$utilities: () !default;
+$utilities: map-merge(
+  (
+    "opacity": (
+        property: opacity,
+        class: o,
+        values: (
+          0: 0,
+          25: .25,
+          50: .5,
+          75: .75,
+          100: 1,
+        )
+    )
+  ), $utilities);
+
+
+
+
+  @import '../node_modules/bootstrap/scss/bootstrap.scss';
