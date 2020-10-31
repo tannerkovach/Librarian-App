@@ -19,7 +19,7 @@
 					
 				
 				<div class="wrapper d-flex">
-					<a class="d-flex align-items-center pr-3" href="https://github.com/tannerkovach/Librarian-App">
+					<a class="d-flex align-items-center pr-3" href="https://github.com/tannerkovach/Librarian-App" target="_blank">
 						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							width="30px" height="30px" viewBox="0 0 438.549 438.549" style="enable-background:new 0 0 438.549 438.549;"
 							xml:space="preserve">
@@ -45,7 +45,7 @@
 								C438.536,184.851,428.728,148.168,409.132,114.573z"/>
 				   		</svg>
 				   </a>
-					<button class="btn btn-secondary dropdown-toggle userGreeting d-none mr-2 text-white" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false"></button>
+					<button class="btn btn-secondary shadow-none dropdown-toggle loggedInUser d-none mr-2 text-white" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false"></button>
 					<a class="nav-link btn btn-sm btn-secondary text-white d-none px-2 mr-2 loginBtn" data-toggle="modal" id="loginBtn" data-target="#loginModal">Log in</a>
 					<a class="nav-link btn btn-sm btn-primary text-white px-2 mr-2" data-toggle="modal" id="signupBtn" data-target="#signupModal">Sign up</a>
 					<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="dropdownMenuButton2">
@@ -63,11 +63,34 @@
 			</div>
 		</nav>
 
-		<header class="container">
-			<h1 class="userName display-4 font-weight-bold mt-3 mb-5"></h1>
-		</header>
+		
 
-		<main class="container">
+		<main class="container my-5 d-flex flex-column">
+			<div class="controlCenter d-none mb-3 justify-content-between">
+				<h1 class="userName display-5 font-weight-bold">My Library</h1>
+
+				<div class="align-self-center">
+					<button class="btn btn-outline-secondary shadow-none dropdown-toggle filterBooks mr-2" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="false">
+						<svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-filter" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+						</svg>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="dropdownFilter">
+						<li>
+							<a class="nav-link dropdown-item" href="/profile">Read</a>
+						</li>
+						<li>
+							<a class="nav-link dropdown-item" href="/profile">Unread</a>
+						</li>
+					</ul>
+
+					<!-- add book btn -->
+					<a class="newBookBtn btn btn-primary align-self-end text-white" data-toggle="modal" data-target="#formModal">
+						Add Book
+					</a>
+				</div>
+			</div>
+
 			<!-- library container -->
 			<ul class="library row g-4 px-0"></ul>
 
@@ -77,7 +100,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="formModalLabel">Add a book</h5>
-							<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+							<button type="button" class="btn-close shadow-none" data-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<form id="newBookForm">
@@ -98,7 +121,7 @@
 									<input type="checkbox" class="form-check-input pb-3" name="formReadStatus" value="Read">
 								</div>
 	
-								<button id="formSubmitBtn" class="btn btn-secondary w-100">Submit</button>
+								<button id="formSubmitBtn" class="btn btn-secondary text-white shadown-none w-100">Submit</button>
 							</form>
 						</div>
 					</div>
@@ -111,7 +134,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="loginModalLabel">Log-in Form</h5>
-							<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+							<button type="button" class="btn-close shadow-none" data-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<form id="loginForm">
@@ -134,7 +157,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="signupModalLabel">Sign-up Form</h5>
-							<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+							<button type="button" class="btn-close shadow-none" data-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<form id="signupForm">
@@ -161,10 +184,7 @@
 				<h4 class="emptyLibraryMsg d-none text-muted position-absolute top-50 left-50 translate-middle text-center">You don't have any books in your library.</h4>
 				<h4 class="signInLibraryMsg d-none text-muted position-absolute top-50 left-50 translate-middle text-center">Sign in to add books to your library</h4>
 			</div>
-			<!-- add book btn -->
-			<a class="newBookBtn m-5" data-toggle="modal" data-target="#formModal">
-				<svg id="Layer_1" data-name="Layer 1" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 18 18"><defs><style>.cls-1{fill:none;}.cls-2{fill:#fff;}</style></defs><path class="cls-1" d="M0,0H18V18H0Z"/><circle class="cls-2" cx="9" cy="9" r="7.5"/><path d="M9,1.5A7.5,7.5,0,1,0,16.5,9,7.5,7.5,0,0,0,9,1.5Zm3.75,8.25h-3v3H8.25v-3h-3V8.25h3v-3h1.5v3h3Z"/></svg>
-			</a>
+			
 		</main>
 
 		

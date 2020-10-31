@@ -37,7 +37,12 @@ ul {
   }
 }
 
-
+.btn-outline-secondary.dropdown-toggle.show {
+  color: white !important;
+} 
+.btn-outline-secondary.dropdown-toggle:hover {
+  color: white !important;
+} 
 
 $danger: #cc5a71;
 $primary: #3f88c5;

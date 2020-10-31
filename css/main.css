@@ -27,6 +27,12 @@ ul {
   margin: 0;
   padding: 0; }
 
+.btn-outline-secondary.dropdown-toggle.show {
+  color: white !important; }
+
+.btn-outline-secondary.dropdown-toggle:hover {
+  color: white !important; }
+
 /*!
  * Bootstrap v5.0.0-alpha2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

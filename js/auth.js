@@ -8,8 +8,9 @@ const loginForm = document.querySelector('#loginForm');
 const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
 const signInMsg = document.querySelector('.signInLibraryMsg');
 const emptyLibraryMsg = document.querySelector('.emptyLibraryMsg');
-const userGreeting = document.querySelector('.userGreeting');
+const loggedInUser = document.querySelector('.loggedInUser');
 const userName = document.querySelector('.userName');
+const controlCenter = document.querySelector('.controlCenter');
 
 auth.onAuthStateChanged(user => {
     if (user) {
@@ -19,18 +20,19 @@ auth.onAuthStateChanged(user => {
         .onSnapshot(function(data) {
             render(data.docs);
         })
-        setTimeout(function(){ 
-            userName.innerHTML = `${user.displayName}'s Library`; 
-        }, 500);
+        // setTimeout(function(){ 
+        //     userName.innerHTML = `${user.displayName}'s Library`; 
+        // }, 500);
     
-        userGreeting.innerHTML = `${user.email}`;
-        userGreeting.classList.remove('d-none');
+        loggedInUser.innerHTML = `${user.displayName}`;
+        loggedInUser.classList.remove('d-none');
         logout.classList.remove('d-none');
         login.classList.add('d-none');
         signup.classList.add('d-none');
         loginClass.classList.add('d-none');
         signInMsg.classList.add('d-none');
-       
+        controlCenter.classList.remove('d-none');
+        controlCenter.classList.add('d-flex');
         
         
         
@@ -50,9 +52,9 @@ auth.onAuthStateChanged(user => {
         consoleLog(`User is signed in: ${user.uid}`, 'success')
     }
     else {
-        userName.innerHTML = '';
-        userGreeting.innerHTML = '';
-        userGreeting.classList.add('d-none');
+        // userName.innerHTML = '';
+        loggedInUser.innerHTML = '';
+        loggedInUser.classList.add('d-none');
         signup.classList.remove('d-none');
         logout.classList.add('d-none')
         login.classList.remove('d-none');
@@ -60,6 +62,8 @@ auth.onAuthStateChanged(user => {
         
         signInMsg.classList.remove('d-none');
         emptyLibraryMsg.classList.add('d-none');
+        controlCenter.classList.add('d-none');
+
         render();
         consoleLog('User is signed out.', 'warning')
     }
