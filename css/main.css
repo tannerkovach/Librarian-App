@@ -23,6 +23,10 @@ ul {
 #headerNav .dropdown-menu-right {
   margin: 0 20px 0 0; }
 
+#headerNav .navbar-brand {
+  margin: 0;
+  padding: 0; }
+
 /*!
  * Bootstrap v5.0.0-alpha2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

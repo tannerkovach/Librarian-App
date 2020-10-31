@@ -3,7 +3,6 @@ const library = document.querySelector('.library'),
     newBookBtn = document.querySelector('.newBookBtn'),
     newBookForm = document.querySelector('#newBookForm'),
     formModal = new bootstrap.Modal(document.getElementById('formModal'));
-    // emptyLibraryMsg = document.querySelector('.emptyLibraryMsg');
 
 let currentUser;
 
