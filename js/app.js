@@ -1,5 +1,6 @@
 // --- Global variables ---
 const library = document.querySelector('.library'),
+    app = document.querySelector('.app'),
     newBookBtn = document.querySelector('.newBookBtn'),
     newBookForm = document.querySelector('#newBookForm'),
     formModal = new bootstrap.Modal(document.getElementById('formModal'));
@@ -138,11 +139,11 @@ function clickEvent( event ) {
 		const nodeToRemove = libraryDocRef.doc(key);
         bookToRemove.remove();
         nodeToRemove.delete(); /* If user clicked on the removeEntryBtn, remove node from database and HTML */
-	}
+    }
 }
 
 // --------------- Event listeners ---------------
-library.addEventListener("click", clickEvent);
+app.addEventListener("click", clickEvent);
 
 
 

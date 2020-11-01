@@ -41,9 +41,9 @@ ul {
   }
 }
 
-.btn-outline-secondary.dropdown-toggle.show {
-  color: rgb(109, 104, 104) !important;
-} 
+// .btn-outline-secondary.dropdown-toggle.show {
+//   color: rgb(109, 104, 104) !important;
+// } 
 .btn-outline-secondary.dropdown-toggle:hover {
   color: white !important;
 }
@@ -52,7 +52,7 @@ ul {
 
 $danger: #cc5a71;
 $primary: #3f88c5;
-$secondary: #838683;
+$secondary: #989A98;
 
 $utilities: () !default;
 $utilities: map-merge(
