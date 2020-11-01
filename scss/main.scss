@@ -31,18 +31,24 @@ ul {
     margin: 0 20px 0 0;
   }
 
+  .dropdown-toggle::after {
+    margin-left: 0.5em;
+  }
+
   .navbar-brand {
-    margin: 0;
-    padding: 0;
+    margin:0;
+    padding:0;
   }
 }
 
 .btn-outline-secondary.dropdown-toggle.show {
-  color: white !important;
+  color: rgb(109, 104, 104) !important;
 } 
 .btn-outline-secondary.dropdown-toggle:hover {
   color: white !important;
-} 
+}
+
+
 
 $danger: #cc5a71;
 $primary: #3f88c5;

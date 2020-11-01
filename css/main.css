@@ -23,12 +23,15 @@ ul {
 #headerNav .dropdown-menu-right {
   margin: 0 20px 0 0; }
 
+#headerNav .dropdown-toggle::after {
+  margin-left: 0.5em; }
+
 #headerNav .navbar-brand {
   margin: 0;
   padding: 0; }
 
 .btn-outline-secondary.dropdown-toggle.show {
-  color: white !important; }
+  color: #6d6868 !important; }
 
 .btn-outline-secondary.dropdown-toggle:hover {
   color: white !important; }
