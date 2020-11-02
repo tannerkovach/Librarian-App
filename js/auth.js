@@ -1,20 +1,25 @@
-const signupForm = document.querySelector('#signupForm');
-const signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
-const logout = document.querySelector('#logoutBtn');
-const login = document.querySelector('#loginBtn');
-const loginClass = document.querySelector('.loginBtn');
-const signup = document.querySelector('#signupBtn');
-const loginForm = document.querySelector('#loginForm');
-const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-const signInMsg = document.querySelector('.signInLibraryMsg');
-const emptyLibraryMsg = document.querySelector('.emptyLibraryMsg');
-const loggedInUser = document.querySelector('.loggedInUser');
-const controlCenter = document.querySelector('.controlCenter');
-const messageCenter = document.querySelector('.messageCenter');
-const userDisplayName = document.querySelector('.userDisplayName');
-const userEmail = document.querySelector('.userEmail');
-const userDeleteProfile = document.querySelector('.userDeleteProfile');
-const userProfileModal = new bootstrap.Modal(document.getElementById('userProfileModal'));
+const signupForm = document.querySelector('#signupForm'),
+    signupModal = new bootstrap.Modal(document.getElementById('signupModal')),
+    signupModalID = document.querySelector('#signupModal'),
+    logout = document.querySelector('#logoutBtn'),
+    login = document.querySelector('#loginBtn'),
+    loginClass = document.querySelector('.loginBtn'),
+    signup = document.querySelector('#signupBtn'),
+    loginForm = document.querySelector('#loginForm'),
+    loginModal = new bootstrap.Modal(document.getElementById('loginModal')),
+    loginModalID = document.querySelector('#loginModal'),
+    signInMsg = document.querySelector('.signInLibraryMsg'),
+    emptyLibraryMsg = document.querySelector('.emptyLibraryMsg'),
+    loggedInUser = document.querySelector('.loggedInUser'),
+    controlCenter = document.querySelector('.controlCenter'),
+    messageCenter = document.querySelector('.messageCenter'),
+    userDisplayName = document.querySelector('.userDisplayName'),
+    userEmail = document.querySelector('.userEmail'),
+    userDeleteProfile = document.querySelector('.userDeleteProfile'),
+    userProfileModal = new bootstrap.Modal(document.getElementById('userProfileModal')),
+    signUpErrorMsg = document.querySelector('.signUpErrorMsg'),
+    logInErrorMsg = document.querySelector('.logInErrorMsg');
+
 
 auth.onAuthStateChanged(user => {
     if (user) {
@@ -103,18 +108,24 @@ signupForm.addEventListener('submit', function(e) {
             displayName: displayName
         })
         .then(function() {
-            
-                loggedInUser.innerHTML = `${cred.user.displayName}`;
-                loggedInUser.classList.remove('d-none');
-            
+            loggedInUser.innerHTML = `Display Name: ${cred.user.displayName}`;
+            userDisplayName.innerHTML = `Email: ${cred.user.displayName}`;
+            loggedInUser.classList.remove('d-none');
+        
             signupModal.hide();
             signupForm.reset();
-            
         })
-        .catch(function(error) {
-            console.log('error',error)
-        });
     })
+    .catch(function(error) {
+        const modalFooter = signupModalID.querySelector('.modal-footer');
+        modalFooter.classList.remove('d-none');
+        signUpErrorMsg.innerHTML = error.message;
+
+        setTimeout(function(){
+            signUpErrorMsg.remove();
+            modalFooter.classList.add('d-none');
+        }, 5000);
+    });
 });
 
 // log in functionality
@@ -124,16 +135,25 @@ loginForm.addEventListener('submit', function(e) {
     let email = loginForm["loginEmail"].value, 
         password = loginForm["loginPassword"].value;
         
-    auth.signInWithEmailAndPassword(email, password).then(cred => {
+    auth.signInWithEmailAndPassword(email, password)
+    .then(cred => {
         loginModal.hide();
         loginForm.reset();
     })
+    .catch(function(error) {
+        const modalFooter = loginModalID.querySelector('.modal-footer');
+        modalFooter.classList.remove('d-none');
+        logInErrorMsg.innerHTML = error.message;
+        setTimeout(function(){
+            logInErrorMsg.remove();
+            modalFooter.classList.add('d-none');
+        }, 5000);
+    });
 });
 
 // sign out functionality
 logout.addEventListener('click', function(e) {
     e.preventDefault();
-    
     auth.signOut();
     render();
 })

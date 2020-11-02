@@ -34,6 +34,9 @@ ul {
   font-style: normal;
   font-size: 24px; }
 
+#userProfileModal .userDisplayName, #userProfileModal .userEmail {
+  color: black; }
+
 .btn-outline-secondary.dropdown-toggle:hover {
   color: white !important; }
 

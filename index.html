@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html>
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,6 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/css/main.css">
-		
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="https://use.typekit.net/boo6fnu.css">
 	</head>
@@ -43,11 +42,12 @@
 								c44.163-14.653,80.185-41.062,108.068-79.226c27.88-38.161,41.825-81.126,41.825-128.906
 								C438.536,184.851,428.728,148.168,409.132,114.573z"/>
 				   		</svg>
-				   </a>
-					<button class="btn btn-dark shadow-none dropdown-toggle loggedInUser d-none mr-2 text-white" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false"></button>
+				    </a>
+
+					<button class="btn btn-dark shadow-none dropdown-toggle loggedInUser d-none mr-2 text-white" type="button" id="navDropdown" data-toggle="dropdown" aria-expanded="false"></button>
 					<a class="nav-link btn btn-sm btn-secondary text-white d-none px-2 mr-2 loginBtn" data-toggle="modal" id="loginBtn" data-target="#loginModal">Log in</a>
 					<a class="nav-link btn btn-sm btn-primary text-white px-2 mr-2" data-toggle="modal" id="signupBtn" data-target="#signupModal">Sign up</a>
-					<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="dropdownMenuButton2">
+					<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="navDropdown">
 						<li>
 							<a class="nav-link dropdown-item" data-toggle="modal" data-target="#userProfileModal" href="/user-profile.html">User Profile</a>
 						</li>
@@ -62,21 +62,16 @@
 			</div>
 		</nav>
 
-		
-
 		<main class="container my-5 d-flex flex-column">
+			<!-- control center -->
 			<div class="controlCenter d-none mb-3 justify-content-between">
-				<!-- <h1 class="userName display-5 font-weight-bold">My Library</h1> -->
-
 				<div class="align-self-center">
-					<!-- filter btn -->
 					<button class="btn btn-outline-secondary shadow-none dropdown-toggle filterBooks mr-2" type="button" id="dropdownFilter" data-toggle="dropdown" aria-expanded="false">
 						<svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-filter" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							<path x="200" y="200"fill-rule="evenodd" d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
 						</svg>
 					</button>
 
-					<!-- dropdown menu for filter btn -->
 					<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="dropdownFilter">
 						<li>
 							<a class="nav-link dropdown-item filterRead" href="#">Read</a>
@@ -84,20 +79,14 @@
 						<li>
 							<a class="nav-link dropdown-item filterUnread" href="#">Unread</a>
 						</li>
-						<!-- <li>
-							<a class="nav-link dropdown-item filterNone" href="#">None</a>
-						</li> -->
 					</ul>
 
-					<!-- current filter -->
 					<div class="btn btn-secondary text-white shadow-none d-none mr-2 filterSelected position-relative"></div>
 				</div>
 					
-				<!-- add book btn -->
 				<a class="newBookBtn btn btn-primary align-self-end text-white" data-toggle="modal" data-target="#formModal">
 					Add Book
 				</a>
-				
 			</div>
 
 			<!-- library container -->
@@ -146,8 +135,8 @@
 							<button type="button" class="btn-close shadow-none" data-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body d-flex flex-column">
-							<h4 class="userDisplayName text-muted text-center">Display Name:</h4>
-							<h4 class="userEmail text-muted text-center">Email:</h4>
+							<div class="text-muted">Display Name: <h5 class="userDisplayName"></h5></div>
+							<div class="text-muted mb-3">Email: <h5 class="userEmail"></h5></div>
 							<button class="userDeleteProfile btn btn-danger text-white">Delete Profile</button>
 						</div>
 					</div>
@@ -173,6 +162,9 @@
 								<input id="loginSubmitBtn" class="btn btn-secondary text-white w-100" type="submit" value="Submit" >
 							</form>
 						</div>
+						<div class="modal-footer justify-content-start d-none">
+							<span class="logInErrorMsg text-danger"></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -196,25 +188,23 @@
 								<label for="signupPassword" class="form-label">Password:</label>
 								<input id="signupPassword" type="text" class="form-control mb-3" name="signupPassword">
 	
-								<input id="signupSubmitBtn" class="btn btn-secondary w-100" type="submit" value="Submit" >
+								<input id="signupSubmitBtn" class="btn btn-secondary w-100 text-white" type="submit" value="Submit" >
 							</form>
+						</div>
+						<div class="modal-footer justify-content-start d-none">
+							<span class="signUpErrorMsg text-danger"></span>
 						</div>
 					</div>
 				</div>
 			</div>
-	
-			
 
 			<!-- message display on signout/empty library -->
 			<div class="messageCenter">
-				<h4 class="emptyLibraryMsg d-none text-muted position-absolute top-50 left-50 translate-middle text-center">You don't have any books in your library.</h4>
-				<h4 class="signInLibraryMsg d-none text-muted position-absolute top-50 left-50 translate-middle text-center">Sign in to add books to your library</h4>
+				<h4 class="emptyLibraryMsg d-none w-75 text-muted position-absolute top-50 left-50 translate-middle text-center">You don't have any books in your library.</h4>
+				<h4 class="signInLibraryMsg d-none w-75 text-muted position-absolute top-50 left-50 translate-middle text-center">Sign in to add books to your library</h4>
 			</div>
-			
 		</main>
 
-		
-		
 		<!-- Firebase scripts -->
 		<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
@@ -222,7 +212,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
 		
 		<script>
-			// Your web app's Firebase configuration
 			var firebaseConfig = {
 				apiKey: "AIzaSyC5fkA_t-_3tVDr3Q3RPCCCvH-CQIQjyoA",
 				authDomain: "library-app-46c67.firebaseapp.com",
@@ -232,12 +221,14 @@
 				messagingSenderId: "837501042588",
 				appId: "1:837501042588:web:22a816c4887ab630e75259"
 			};
+
 			// Initialize Firebase
 			firebase.initializeApp(firebaseConfig);
 
 			const database = firebase.firestore();
 			const auth = firebase.auth();
 			
+			// custom console.log function for colored logs
 			function consoleLog(message, color = 'black') {
 				switch (color) {
 					case 'success':
@@ -260,7 +251,6 @@
 			}
 		</script>
 
-		<!-- Connecting my JS file and Bootstrap JS file -->
 		<script type="text/javascript" src="/js/app.js" defer></script>
 		<script type="text/javascript" src="/js/auth.js" defer></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>	
