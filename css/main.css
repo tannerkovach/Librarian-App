@@ -28,7 +28,11 @@ ul {
 
 #headerNav .navbar-brand {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  font-family: bookman-jf-pro, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px; }
 
 .btn-outline-secondary.dropdown-toggle:hover {
   color: white !important; }

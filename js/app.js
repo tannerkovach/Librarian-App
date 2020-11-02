@@ -6,7 +6,10 @@ const library = document.querySelector('.library'),
     formModal = new bootstrap.Modal(document.getElementById('formModal'));
 
 let currentUser;
-
+const filterRead = document.querySelector('.filterRead');
+const filterUnread = document.querySelector('.filterUnread');
+// const filterNone = document.querySelector('.filterNone');
+const filterSelected = document.querySelector('.filterSelected');
 
 // --------------- Render book library from database ---------------
 const render = (data) => {
@@ -54,6 +57,19 @@ const render = (data) => {
     })
 }
 
+
+
+filterUnread.addEventListener('click', filter);
+filterRead.addEventListener('click', filter);
+filterSelected.addEventListener('click', filter);
+
+function filter(event) { 
+    currentUser = auth.currentUser;
+    
+        
+    
+    
+}
 
 
 // --------------- Form data pushed to database ---------------
@@ -127,7 +143,6 @@ function toggle(keyToToggle) {
 function clickEvent( event ) { 
     currentUser = auth.currentUser;
     let libraryDocRef = database.collection('users').doc(currentUser.uid).collection('library');
-    
     let key = event.target.dataset.key; /* Retrieve users click target and if it has a data-key attribute, save it */
 
     if (event.target.classList.contains("toggleStatusBtn")) {
@@ -139,6 +154,51 @@ function clickEvent( event ) {
 		const nodeToRemove = libraryDocRef.doc(key);
         bookToRemove.remove();
         nodeToRemove.delete(); /* If user clicked on the removeEntryBtn, remove node from database and HTML */
+    }
+
+    if (event.target.classList.contains("filterRead")) {
+        const filteredTrueRef = database.collection(`users/${currentUser.uid}/library`).where("readStatus", "==", true)
+        .onSnapshot(function(data) {
+            if(data.docs.length > 0) {
+                render(data.docs);
+            }
+            else {
+                filterSelected.classList.add('d-none')
+                location.reload();
+            }
+        })
+        filterSelected.classList.remove('d-none')
+        filterSelected.innerHTML = `Read <svg width="1em" height="1em" viewBox="0 0 16 16" class="filterSelected ml-1 bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>`;
+    }
+
+    if (event.target.classList.contains("filterUnread")) {
+        const filteredFalseRef = database.collection(`users/${currentUser.uid}/library`).where("readStatus", "==", false)
+        .onSnapshot(function(data) {
+            if(data.docs.length > 0) {
+                render(data.docs);
+            }
+            else {
+                filterSelected.classList.add('d-none')
+                location.reload();
+            }
+        })
+        filterSelected.classList.remove('d-none')
+        filterSelected.innerHTML = `Unread <svg width="1em" height="1em" viewBox="0 0 16 16" class="filterSelected ml-1 bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>`;
+    }
+
+    if (event.target.classList.contains("filterSelected")) {
+        // const currentUserLibraryListener =  libraryDocRef
+        // .onSnapshot(function(data) {
+        //    render(data.docs);
+        // })
+        // filterSelected.classList.add('d-none');  
+        location.reload();
     }
 }
 

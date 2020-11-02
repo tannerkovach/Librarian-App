@@ -10,62 +10,20 @@ const signInMsg = document.querySelector('.signInLibraryMsg');
 const emptyLibraryMsg = document.querySelector('.emptyLibraryMsg');
 const loggedInUser = document.querySelector('.loggedInUser');
 const controlCenter = document.querySelector('.controlCenter');
-const filterRead = document.querySelector('.filterRead');
-const filterUnread = document.querySelector('.filterUnread');
-const filterNone = document.querySelector('.filterNone');
-const filterSelected = document.querySelector('.filterSelected');
+const messageCenter = document.querySelector('.messageCenter');
+const userDisplayName = document.querySelector('.userDisplayName');
+const userEmail = document.querySelector('.userEmail');
+const userDeleteProfile = document.querySelector('.userDeleteProfile');
+const userProfileModal = new bootstrap.Modal(document.getElementById('userProfileModal'));
 
 auth.onAuthStateChanged(user => {
     if (user) {
         const libraryRef = database.collection(`users/${user.uid}/library`).orderBy('timestamp', 'asc');
         
-        //if user is signed && user clicks filter unread, show unread books
-        filterUnread.addEventListener('click', filter);
-        filterRead.addEventListener('click', filter);
-        filterNone.addEventListener('click', filter);
-        filterSelected.addEventListener('click', filter);
-        function filter(event) { 
-            if (event.target.classList.contains("filterRead")) {
-                const filteredTrueRef = database.collection(`users/${user.uid}/library`).where("readStatus", "==", true);
-                filteredTrueRef
-                .onSnapshot(function(data) {
-                    render(data.docs);
-                })
-                filterSelected.classList.remove('d-none')
-                filterSelected.innerHTML = `Read <svg width="1em" height="1em" viewBox="0 0 16 16" class="filterSelected ml-1 bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-</svg>`;
-            }
-            else if (event.target.classList.contains("filterUnread")) {
-                const filteredFalseRef = database.collection(`users/${user.uid}/library`).where("readStatus", "==", false);
-                filteredFalseRef
-                .onSnapshot(function(data) {
-                    render(data.docs);
-                })
-                filterSelected.classList.remove('d-none')
-                filterSelected.innerHTML = `Unread <svg width="1em" height="1em" viewBox="0 0 16 16" class="filterSelected ml-1 bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-</svg>`;
-            }
-            else if (event.target.classList.contains("filterSelected") || event.target.classList.contains("filterNone")) {
-                libraryRef
-                .onSnapshot(function(data) {
-                    render(data.docs);
-                })
-                filterSelected.classList.add('d-none');
-            }
-        }
-
         libraryRef
         .onSnapshot(function(data) {
             render(data.docs);
         })
-
-        //if user is signed && user clicks filter read, show read books
-        
-        //else, render all books
     
         loggedInUser.innerHTML = `${user.displayName}`;
         loggedInUser.classList.remove('d-none');
@@ -76,7 +34,8 @@ auth.onAuthStateChanged(user => {
         signInMsg.classList.add('d-none');
         controlCenter.classList.remove('d-none');
         controlCenter.classList.add('d-flex');
-        
+        userDisplayName.innerHTML = `${user.displayName}`;
+        userEmail.innerHTML = `${user.email}`;
         
         
         console.log('user data docs',user)
@@ -91,7 +50,22 @@ auth.onAuthStateChanged(user => {
                 emptyLibraryMsg.classList.add('d-none');
             }
         });
-        
+
+        userDeleteProfile.addEventListener('click', function(){
+            database.collection("users").doc(user.uid).delete()
+                .then(function() {
+                    console.log("user document successfully deleted!");
+                    user.delete().then(function() {
+                        // User deleted.
+                        console.log('user deleted')
+                      }).catch(function(error) {
+                            console.log(error)
+                      });
+                })
+
+            userProfileModal.hide();
+        })
+
         consoleLog(`User is signed in: ${user.uid}`, 'success')
     }
     else {
